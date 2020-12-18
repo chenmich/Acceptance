@@ -1,0 +1,6 @@
+mpi4py
+numpy
+matplotlib
+pandas
+pytest
+tqdm
