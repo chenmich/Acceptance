@@ -25,9 +25,8 @@ def test_simulate():
     zip_model13 = (0.95, 1.55, 0.85, 0.85, None)
     result3 = simulate(zip_model13, sample1, simulation_n=100)
     res = np.array(result3)
-    assert res.shape == (3, length)
+    assert res.shape == (2, length)
     zip_model1_rate = res[0][0:1]
     assert np.all(zip_model1_rate<=1) == True
     assert np.all(zip_model1_rate>=0) == True
-    zip_model12_rate = res[2]
-    assert np.all(zip_model12_rate == None) == True
+    
