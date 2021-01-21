@@ -1,14 +1,14 @@
 import pytest
 import numpy as np
 from acceptance.simulate import simulate
-from acceptance import alpha_x
+from acceptance import not_pass_rate_x
 
 
 def test_simulate():
     zip_model1 = (1.0, 0.95, 0.95, 0.85, 0.85)
     sample1 = (6, 25, 45)
     zip_model12 = (0.95, 1.55, 0.85, 0.85, 0.85)
-    length = len(alpha_x)
+    length = len(not_pass_rate_x)
 
     result1 = simulate(zip_model1, sample1, simulation_n=100)
     res = np.array(result1)
