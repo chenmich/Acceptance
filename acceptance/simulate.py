@@ -1,5 +1,5 @@
 import numpy as np
-from collections import OrderedDict
+from tqdm import tqdm
 from acceptance import not_pass_rate_x
 
 def simulate(model_args:tuple, sample_args:tuple, simulation_n=10000):
@@ -76,7 +76,7 @@ def simulate_many(combination:list, simulate_n=10000)->np.ndarray:
 
     '''
     data = []
-    for sample, model in combination:
+    for sample, model in tqdm(combination):
         n, sigma, f_cu0 = sample
         a, b, c, d, e  = model
         _data = simulate(model, sample, simulation_n=simulate_n)
