@@ -14,8 +14,8 @@ def get_sample_model():
     '''
     #argments for sample
     __sample_num = [12, 14, 18, 22, 30, 50]
-    __f_cu0 = [20, 25, 30, 35, 40, 45, 50]
-    __sigma = [2.5, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0]
+    __f_cu0 = [20, 30, 40, 50, 60]
+    __sigma = [2.5, 4.5, 5.5, 8.0, 12.0]
     #samples
     samples = [(x, y) for x in __sample_num for y in __sigma]
     samples = [(x, y , z) for x, y in samples for z in __f_cu0]
