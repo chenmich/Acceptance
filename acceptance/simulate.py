@@ -44,7 +44,7 @@ def simulate_unknown(model:tuple, sample:tuple, sim_n=10000):
         acc_2.append(_acc)
     return np.array([acc_1, acc_2])
     
-def simulate_knonwn(model:tuple, sample:tuple, sim_n=10000):
+def simulate_known(model:tuple, sample:tuple, sim_n=10000):
     '''
         This function will simulate the acceptance for the known sigma lot
         Arg:
@@ -83,7 +83,8 @@ def simulate_knonwn(model:tuple, sample:tuple, sim_n=10000):
         _acc = np.count_nonzero(result2)/sim_n
         acc_2.append(_acc)
     return np.array([acc_1, acc_2])
-def simulate_many(combination:list, simulate_n=10000)->np.ndarray:
+
+def simulate_many(combination:list, sim_fuc=simulate_unknown, sim_n=10000)->np.ndarray:
     '''
     This function simulate many sample and model
     Arg:
@@ -93,12 +94,10 @@ def simulate_many(combination:list, simulate_n=10000)->np.ndarray:
 
     '''
     data = []
-    for sample, model in tqdm(combination):
+    for sample, model in combination:
         n, sigma, f_cu0 = sample
-        a, b, c, d, e  = model
-        _data = simulate_unkonwn(model, sample, simulation_n=simulate_n)
-        data.append([n, sigma, f_cu0, a, b, 0, 0] + _data[0])
-        data.append([n, sigma, f_cu0, a, b, c, d] + _data[1])
-        if e != None:
-            data.append([n, sigma, f_cu0, a, b, e, 0] + _data[2])
+        a, b, c, d = model
+        acc = sim_fuc(model, sample, sim_n=sim_n).tolist()
+        data.append([n, sigma, f_cu0, a, b, 0, 0]+ acc[0])
+        data.append([n, sigma, f_cu0, a, b, c, d] + acc[1])        
     return np.array(data)
