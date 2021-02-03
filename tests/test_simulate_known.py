@@ -18,4 +18,6 @@ def test_simulate_known():
     z = - norm.ppf(not_pass_rate)
     z_acc = (k - z) * math.sqrt(n)
     acc = 1 - norm.cdf(z_acc)
-    assert np.allclose(result, acc, atol=0.02)
+    assert np.allclose(result[0], acc, atol=0.02)
+    assert np.allclose(result[0][8], acc[8], atol=0.01)
+    assert np.allclose(result[0][1], 0.95, atol=0.01)
