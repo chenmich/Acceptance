@@ -4,7 +4,7 @@ import numpy as np
 from scipy.stats import norm
 
 from acceptance import not_pass_rate
-from acceptance.simulate import simulate_unknonwn
+from acceptance.simulate import simulate_unknown
 
 import pytest
 
@@ -12,7 +12,7 @@ def test_simulate_unknown():
 
     model1 = (1, 1.10, 1, -1.10)
     sample1 = (15, 4, 40)
-    result1 = simulate_unknonwn(model1, sample1, sim_n=10000)
+    result1 = simulate_unknown(model1, sample1, sim_n=10000)
     n, _, _ = sample1
     _, k, _, _ = model1
     Ank = math.sqrt((1+k*k/2)/n)
