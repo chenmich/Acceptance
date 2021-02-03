@@ -3,7 +3,7 @@ from scipy.stats import norm
 from tqdm import tqdm
 from acceptance import not_pass_rate_x
 
-def simulate_unknonwn(model:tuple, sample:tuple, sim_n=10000):
+def simulate_unknown(model:tuple, sample:tuple, sim_n=10000):
     '''
         This function will simulate the acceptance for the unknown sigma lot
         Arg:
