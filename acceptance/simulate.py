@@ -24,6 +24,7 @@ def simulate_unknown(model:tuple, sample:tuple, sim_n=10000):
     '''
     acc_1 = []
     acc_2 = []
+    acc_3 = []
     n, sigma, f_cu0 = sample
     a, b, c, d = model
     for x in not_pass_rate_x:
@@ -36,13 +37,15 @@ def simulate_unknown(model:tuple, sample:tuple, sim_n=10000):
 
         result1 = s_mean >= a * f_cu0 + b * s_std
         result2 = s_min >= c * f_cu0 + d * s_std
-        result2 = np.logical_and(result1, result2)
+        result3 = np.logical_and(result1, result2)
 
         _acc = np.count_nonzero(result1)/sim_n        
         acc_1.append(_acc)
         _acc = np.count_nonzero(result2)/sim_n
         acc_2.append(_acc)
-    return np.array([acc_1, acc_2])
+        _acc = np.count_nonzero(result3)/sim_n
+        acc_3.append(_acc)
+    return np.array([acc_1, acc_2, acc_3])
     
 def simulate_known(model:tuple, sample:tuple, sim_n=10000):
     '''
@@ -65,6 +68,7 @@ def simulate_known(model:tuple, sample:tuple, sim_n=10000):
     '''
     acc_1 = []
     acc_2 = []
+    acc_3 = []
     n, sigma, f_cu0 = sample
     a, b, c, d = model
     for x in not_pass_rate_x:
@@ -76,13 +80,14 @@ def simulate_known(model:tuple, sample:tuple, sim_n=10000):
 
         result1 = s_mean >= a * f_cu0 + b * sigma
         result2 = s_min >= c * f_cu0 + d * sigma
-        result2 = np.logical_and(result1, result2)
+        result3 = np.logical_and(result1, result2)
 
         _acc = np.count_nonzero(result1)/sim_n        
         acc_1.append(_acc)
         _acc = np.count_nonzero(result2)/sim_n
         acc_2.append(_acc)
-    return np.array([acc_1, acc_2])
+        _acc = np.count_nonzero(result3)/sim_n
+    return np.array([acc_1, acc_2, acc_3])
 
 def simulate_many(combination:list, sim_fuc=simulate_unknown, sim_n=10000)->np.ndarray:
     '''
@@ -99,5 +104,6 @@ def simulate_many(combination:list, sim_fuc=simulate_unknown, sim_n=10000)->np.n
         a, b, c, d = model
         acc = sim_fuc(model, sample, sim_n=sim_n).tolist()
         data.append([n, sigma, f_cu0, a, b, 0, 0]+ acc[0])
-        data.append([n, sigma, f_cu0, a, b, c, d] + acc[1])        
+        data.append([n, sigma, f_cu0, 0, 0, c, d] + acc[1])
+        data.append([n, sigma, f_cu0, a, b, c, d] + acc[1])
     return np.array(data)
